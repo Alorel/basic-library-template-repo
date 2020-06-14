@@ -7,7 +7,7 @@ import {promises as fs} from 'fs';
 import {threadedTerserPlugin} from "@alorel/rollup-plugin-threaded-terser";
 import {dtsPlugin} from '@alorel/rollup-plugin-dts';
 import * as pkgJson from './package.json';
-import {fastTscPlugin} from "@alorel/rollup-plugin-fast-tsc";
+import typescript from 'rollup-plugin-typescript2';
 
 const umdName = 'MyLibrary';
 const umdGlobals = {};
@@ -42,7 +42,7 @@ const baseSettings = {
   watch: {
     exclude: 'node_modules/*'
   }
-}
+};
 
 const baseOutput = {
   entryFileNames: '[name].js',
@@ -50,15 +50,19 @@ const baseOutput = {
   sourcemap: false
 };
 
-export default ({watch}) => [
-  {
+function isTruthy(v) {
+  return !!v;
+}
+
+export default function ({watch}) {
+  const cjs = {
     ...baseSettings,
     input: baseInput,
     output: {
       ...baseOutput,
       dir: distDir,
       format: 'cjs',
-      plugins: [
+      plugins: watch ? [] : [
         copyPkgJsonPlugin({
           unsetPaths: ['devDependencies', 'scripts']
         }),
@@ -69,7 +73,7 @@ export default ({watch}) => [
     },
     plugins: [
       clean$,
-      copyPlugin({
+      !watch && copyPlugin({
         defaultOpts: {
           glob: {
             cwd: __dirname
@@ -83,120 +87,146 @@ export default ({watch}) => [
         ]
       }),
       mkNodeResolve(),
-      fastTscPlugin({watch})
-    ]
-  },
-  {
-    ...baseSettings,
-    input: baseInput,
-    output: {
-      ...baseOutput,
-      format: 'es',
-      dir: join(distDir, 'esm2015')
-    },
-    plugins: [
-      mkNodeResolve(),
-      fastTscPlugin()
-    ]
-  },
-  {
-    ...baseSettings,
-    input: baseInput,
-    output: {
-      ...baseOutput,
-      format: 'es',
-      dir: join(distDir, 'esm5')
-    },
-    plugins: [
-      mkNodeResolve(),
-      fastTscPlugin({extraCliArgs: ['--target', 'es5']})
-    ]
-  },
-  {
-    ...baseSettings,
-    preserveModules: false,
-    output: [
-      {
-        ...baseOutput,
-        banner: () => banner$,
-        dir: bundleDir,
-        entryFileNames: 'fesm5.js',
-        format: 'es',
-      }
-    ],
-    plugins: [
-      mkNodeResolve(),
-      fastTscPlugin({extraCliArgs: ['--target', 'es5']})
-    ]
-  },
-  {
-    ...baseSettings,
-    preserveModules: false,
-    output: [
-      {
-        ...baseOutput,
-        banner: () => banner$,
-        dir: bundleDir,
-        entryFileNames: 'fesm2015.js',
-        format: 'es',
-      }
-    ],
-    plugins: [
-      mkNodeResolve(),
-      fastTscPlugin()
-    ]
-  },
-  {
-    ...baseSettings,
-    preserveModules: false,
-    output: (() => {
-      const base = {
-        ...baseOutput,
-        banner: () => banner$,
-        name: umdName,
-        globals: umdGlobals,
-        dir: bundleDir,
-        format: 'umd'
-      }
+      typescript()
+    ].filter(isTruthy)
+  };
 
-      return [
-        {
-          ...base,
-          entryFileNames: 'umd.js'
-        },
-        {
-          ...base,
-          entryFileNames: 'umd.min.js',
-          plugins: [
-            threadedTerserPlugin({
-              terserOpts: {
-                compress: {
-                  drop_console: true,
-                  keep_infinity: true,
-                  typeofs: false,
-                  ecma: 5
-                },
-                ecma: 5,
-                ie8: true,
-                mangle: {
-                  safari10: true
-                },
-                output: {
-                  comments: false,
-                  ie8: true,
-                  safari10: true
-                },
-                safari10: true,
-                sourceMap: false
-              }
-            })
-          ]
-        }
-      ]
-    })(),
-    plugins: [
-      mkNodeResolve(),
-      fastTscPlugin({extraCliArgs: ['--target', 'es5']})
-    ]
+  if (watch) {
+    return cjs;
   }
-];
+
+  return [
+    cjs,
+    {
+      ...baseSettings,
+      input: baseInput,
+      output: {
+        ...baseOutput,
+        format: 'es',
+        dir: join(distDir, 'esm2015')
+      },
+      plugins: [
+        mkNodeResolve(),
+        typescript()
+      ]
+    },
+    {
+      ...baseSettings,
+      input: baseInput,
+      output: {
+        ...baseOutput,
+        format: 'es',
+        dir: join(distDir, 'esm5')
+      },
+      plugins: [
+        mkNodeResolve(),
+        typescript({
+          tsconfigOverride: {
+            compilerOptions: {
+              target: 'es5'
+            }
+          }
+        })
+      ]
+    },
+    {
+      ...baseSettings,
+      preserveModules: false,
+      output: [
+        {
+          ...baseOutput,
+          banner: () => banner$,
+          dir: bundleDir,
+          entryFileNames: 'fesm5.js',
+          format: 'es',
+        }
+      ],
+      plugins: [
+        mkNodeResolve(),
+        typescript({
+          tsconfigOverride: {
+            compilerOptions: {
+              target: 'es5'
+            }
+          }
+        })
+      ]
+    },
+    {
+      ...baseSettings,
+      preserveModules: false,
+      output: [
+        {
+          ...baseOutput,
+          banner: () => banner$,
+          dir: bundleDir,
+          entryFileNames: 'fesm2015.js',
+          format: 'es',
+        }
+      ],
+      plugins: [
+        mkNodeResolve(),
+        typescript()
+      ]
+    },
+    {
+      ...baseSettings,
+      preserveModules: false,
+      output: (() => {
+        const base = {
+          ...baseOutput,
+          banner: () => banner$,
+          name: umdName,
+          globals: umdGlobals,
+          dir: bundleDir,
+          format: 'umd'
+        };
+
+        return [
+          {
+            ...base,
+            entryFileNames: 'umd.js'
+          },
+          {
+            ...base,
+            entryFileNames: 'umd.min.js',
+            plugins: [
+              threadedTerserPlugin({
+                terserOpts: {
+                  compress: {
+                    drop_console: true,
+                    keep_infinity: true,
+                    typeofs: false,
+                    ecma: 5
+                  },
+                  ecma: 5,
+                  ie8: true,
+                  mangle: {
+                    safari10: true
+                  },
+                  output: {
+                    comments: false,
+                    ie8: true,
+                    safari10: true
+                  },
+                  safari10: true,
+                  sourceMap: false
+                }
+              })
+            ]
+          }
+        ]
+      })(),
+      plugins: [
+        mkNodeResolve(),
+        typescript({
+          tsconfigOverride: {
+            compilerOptions: {
+              target: 'es5'
+            }
+          }
+        })
+      ]
+    }
+  ].filter(isTruthy);
+};

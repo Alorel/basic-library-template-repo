@@ -1,31 +1,11 @@
 {
-  "compileOnSave": false,
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "esnext",
-    "rootDir": ".",
-    "allowSyntheticDefaultImports": true,
     "sourceMap": false,
-    "declaration": false,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "moduleResolution": "node",
-    "downlevelIteration": true,
-    "module": "es2015",
-    "emitDecoratorMetadata": false,
-    "experimentalDecorators": true,
-    "strictNullChecks": true,
-    "strictBindCallApply": true,
-    "stripInternal": true,
-    "importHelpers": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ]
+    "module": "es2015"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules"
+  "files": [
+    "src/index.ts"
   ]
 }

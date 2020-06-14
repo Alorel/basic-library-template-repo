@@ -7,6 +7,8 @@
 # These files are text and should be normalized (Convert crlf => lf)
 .browserlistrc text
 *.js text
+*.xml text
+*.iml text
 *.jsx text
 *.ts text
 *.tsx text
@@ -21,7 +23,19 @@ yarn.lock text
 *.css text
 *.less text
 *.json text
+LICENSE text
+CHANGELOG text
 
 *.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.mp3 binary
+*.wav binary
+*.gif binary
 *.gz binary
+*.tgz binary
+*.gz binary
+*.br binary
 *.tgz binary
