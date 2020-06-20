@@ -106,10 +106,10 @@ __metadata:
     "@semantic-release/npm": ^7.0.5
     "@types/node": ^14.0.13
     custom-tslint-formatters: ^2.4.0
-    rollup: ^2.16.1
+    rollup: ^2.17.1
     rollup-plugin-typescript2: ^0.27.1
     semantic-release: ^17.0.8
-    terser: ^4.7.0
+    terser: ^4.8.0
     tslint: ^6.1.2
     typescript: ^3.9.5
   languageName: unknown
@@ -5491,9 +5491,9 @@ resolve@1.15.1:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.16.1":
-  version: 2.16.1
-  resolution: "rollup@npm:2.16.1"
+"rollup@npm:^2.17.1":
+  version: 2.17.1
+  resolution: "rollup@npm:2.17.1"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -5501,7 +5501,7 @@ resolve@1.15.1:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 2/da58b25b29339fd43d039278abd591efdc0129026dc2762205bf3fd711d105b7546715a32646b9247cf1adb46694d28cb2ac1d66c91c1c1ca27d87e1ac1a9d1f
+  checksum: 2/e43f9387e9297c7f00c6867e8d9547bf53a01642874745f7a2ddd61ca1a721b9ae5e94eae7b6da874dcae899c4f4dfd0fd45e5695d92a0e0d6d873262ccd3bb9
   languageName: node
   linkType: hard
 
@@ -6181,16 +6181,16 @@ resolve@1.15.1:
   languageName: node
   linkType: hard
 
-"terser@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "terser@npm:4.7.0"
+"terser@npm:^4.8.0":
+  version: 4.8.0
+  resolution: "terser@npm:4.8.0"
   dependencies:
     commander: ^2.20.0
     source-map: ~0.6.1
     source-map-support: ~0.5.12
   bin:
     terser: bin/terser
-  checksum: 2/514910eef6688f65d5df576148472a58f70a7a8044d0badb9be3962ea32729fd7a8b4319dabd8c1774557818dca6b2118623c84af14c3fc3adaaf54b1c03bf61
+  checksum: 2/d7ab95898b40e2aa3513b02fc74f520f8e65072a19d7f687b8224af01512ad4d2227bc1375c22cd050f67eb1ca3e440b4f09652c5f48f13ed9ee81c0c26015a3
   languageName: node
   linkType: hard
 
