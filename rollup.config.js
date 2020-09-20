@@ -31,13 +31,13 @@ const baseInput = join(srcDir, 'index.ts');
 
 const baseSettings = {
   input: join(srcDir, 'index.ts'),
-  external: Array.from(
-    new Set(
-      Object.keys(Object.keys(pkgJson.dependencies || {}))
-        .concat(Object.keys(pkgJson.peerDependencies || {}))
-        .filter(p => !p.startsWith('@types/'))
-    )
-  ),
+  // external: Array.from(
+  //   new Set(
+  //     Object.keys(Object.keys(pkgJson.dependencies || {}))
+  //       .concat(Object.keys(pkgJson.peerDependencies || {}))
+  //       .filter(p => !p.startsWith('@types/'))
+  //   )
+  // ),
   preserveModules: true,
   watch: {
     exclude: 'node_modules/*'
