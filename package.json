@@ -18,7 +18,7 @@
   "scripts": {
     "rollup": "rollup -c",
     "release": "semantic-release",
-    "lint": "eslint . --ext .ts ",
+    "lint": "eslint . --ext .ts",
     "lint:fix": "yarn run lint --fix",
     "rollup:watch": "yarn run rollup --watch",
     "typecheck": "tsc --noEmit --outDir dist",
