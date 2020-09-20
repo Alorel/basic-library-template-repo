@@ -1,1 +1,1 @@
-export const _tmp = () => Date.now();
+export const _tmp = (): number => Date.now();
