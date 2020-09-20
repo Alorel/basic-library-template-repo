@@ -117,7 +117,6 @@ __metadata:
     "@types/node": ^14.11.1
     "@typescript-eslint/eslint-plugin": ^4.1.1
     "@typescript-eslint/parser": ^4.1.1
-    custom-tslint-formatters: ^2.4.0
     eslint: ^7.9.0
     rollup: ^2.27.1
     rollup-plugin-typescript2: ^0.27.2
@@ -1320,7 +1319,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0, chalk@npm:^2.0.1, chalk@npm:^2.3.0, chalk@npm:^2.3.2":
+"chalk@npm:^2.0.0, chalk@npm:^2.0.1, chalk@npm:^2.3.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -1791,18 +1790,6 @@ __metadata:
   dependencies:
     array-find-index: ^1.0.1
   checksum: 2/1968b4b57677da838b8b3f0db806e1eb4f59cc95addb6e0fd3098703fe31a3e7e5e437f253aa74408a80699e7cc59947881a7e678d0ced887619077dcccdf70f
-  languageName: node
-  linkType: hard
-
-"custom-tslint-formatters@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "custom-tslint-formatters@npm:2.4.0"
-  dependencies:
-    chalk: ^2.3.0
-    log-symbols: ^2.2.0
-  peerDependencies:
-    tslint: ^4.0.0 || ^5.0.0
-  checksum: 2/2cba15a2e8df8cfb5d57caa90ddae13f842cc6f6a4eaf23b85b4208d5f737508994e1f976e366d647cbdc2448cc04484e25a58061a4489d303a380b791a5db41
   languageName: node
   linkType: hard
 
@@ -4142,15 +4129,6 @@ fsevents@~2.1.2:
   version: 4.17.15
   resolution: "lodash@npm:4.17.15"
   checksum: 2/aec3fbb7570aa67bda500b8299b1b1821d60646bede87f76a74dfcc7666ab3445267d734ec71424d70809d52ad67a1356fab5ab694a3faa1908d68e9d48f00f5
-  languageName: node
-  linkType: hard
-
-"log-symbols@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "log-symbols@npm:2.2.0"
-  dependencies:
-    chalk: ^2.0.1
-  checksum: 2/e2dfd255f3e3080134055597fb67bd67798d65383488683ed90f0376f7264dd21028f30d4c3a0686251dcfc4dc71172e8061cef21e89c6deabb8b375450d5166
   languageName: node
   linkType: hard
 
