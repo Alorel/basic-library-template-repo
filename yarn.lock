@@ -15,12 +15,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-base@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "@alorel/eslint-config-base@npm:1.0.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.6%2Fa2fb877874064828a06238fab1587799947c66c09c295430699c1f85cc32296f"
+"@alorel/eslint-config-base@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "@alorel/eslint-config-base@npm:1.0.7::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.7%2F521dfd1abcf5a86ee762e31f311191d74c30ef0919825b339563cc3ba633563e"
   peerDependencies:
     eslint: ">=7.9.0"
-  checksum: 2/ceeb787732190a6bf6a57b4537d83836727cd2f750f1537e82dd478adce9478f628855a754977a73e1baa59f84fd71dad3bdfa00e84696949b579c9859a55610
+  checksum: 2/75e7e3878dcc50894be0c5e52c0e8c8be68b9ebdc6ad1d64cfd45a0dcc5018257124232b512a0c932116dfe73e9188d7ea5b7e52c87fe472ff196328fb7b652f
   languageName: node
   linkType: hard
 
@@ -101,7 +101,7 @@ __metadata:
   resolution: "@alorel/xxxxxxxxxxxxxxxxxxxxxx@workspace:."
   dependencies:
     "@alorel-personal/conventional-changelog-alorel": ^2.1.3
-    "@alorel/eslint-config-base": ^1.0.6
+    "@alorel/eslint-config-base": ^1.0.7
     "@alorel/eslint-config-typescript": ^1.0.7
     "@alorel/rollup-plugin-clean": ^1.0.0
     "@alorel/rollup-plugin-copy": ^1.0.1
@@ -118,7 +118,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.1.1
     "@typescript-eslint/parser": ^4.1.1
     eslint: ^7.9.0
-    rollup: ^2.27.1
+    rollup: ^2.28.1
     rollup-plugin-typescript2: ^0.27.2
     semantic-release: ^17.1.2
     terser: ^5.3.2
@@ -6156,9 +6156,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.27.1":
-  version: 2.27.1
-  resolution: "rollup@npm:2.27.1"
+"rollup@npm:^2.28.1":
+  version: 2.28.1
+  resolution: "rollup@npm:2.28.1"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -6166,7 +6166,7 @@ fsevents@~2.1.2:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 2/ed5d60f5fe01b4141bcbf58fab9a27201df7b1de04dd3b30fc341a5540ff079c70f407f379a27aaeafbbc8c4e89b232c2c5fe109a63094fcdb002fbb97e0ce70
+  checksum: 2/cd9068390c778a0400df99a43982f66ad71e33158fdcaeeb3f87a5cd68fbc20d71b6b0f4434face91adfcca5cc787fe112212d96ef3b85c68e88a71751c1dda1
   languageName: node
   linkType: hard
 
