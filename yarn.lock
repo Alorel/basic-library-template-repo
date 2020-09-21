@@ -24,14 +24,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-typescript@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@alorel/eslint-config-typescript@npm:1.0.4::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.4%2F8f97a833e0b476389717eba48612c264839325f447f39c6417d84ee916b1dd9e"
+"@alorel/eslint-config-typescript@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@alorel/eslint-config-typescript@npm:1.0.6::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.6%2Fbeb1f153a54989ebe59e450913828f5f8740094a2334bdbbed361ad1c9d80ca6"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ">=4.1.1"
     "@typescript-eslint/parser": ">=4.1.1"
     eslint: ">=7.9.0"
-  checksum: 2/0ca6e9e0ceeca050e9faeb983219246f3bc4886312cdd727360d4e6228d0873c354504f7e26635c21cbb936bed88c2b13652c47d686b379f9ac0e50576d896fd
+  checksum: 2/c0dd7e396e7ef5ac1724392a73312354e2720fd8de20632fce60cd77ab4ab8d767b265b0bc150bded0d6f61c0cffd8a6c95fc5a8e614e7f6514f7b3bfad757fc
   languageName: node
   linkType: hard
 
@@ -69,18 +69,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/rollup-plugin-dts@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@alorel/rollup-plugin-dts@npm:2.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Frollup-plugin-dts%2F2.0.0%2Fad1251766fbfa76d2f537419f0de96b32b61a7f3e7f9b42c9d9d84a3824b64dd"
+"@alorel/rollup-plugin-dts@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@alorel/rollup-plugin-dts@npm:2.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Frollup-plugin-dts%2F2.0.1%2Fd2cf9dfb66f6bed8c50a1bf7e91fa3450fb9422860e0db769b14d3722d98fd0d"
   dependencies:
-    bluebird: ^3.7.0
-    cross-spawn: ^7.0.0
-    glob: ^7.0.0
-    tmp: ^0.2.0
+    bluebird: ^3.7.2
+    cross-spawn: ^7.0.3
+    glob: ^7.1.6
+    tmp: ^0.2.1
   peerDependencies:
     rollup: ^2.6.0 || ^1.30.0
-    typescript: ^3.5.0
-  checksum: 2/16d3b4b748c7f0a62021a489d7dfbf69075549f38e4ae4fd8bb51b67aad4d085b8ca481a66ec12d6adf00093c1c484139162776868b52b6ccb87607cbfe407f4
+    typescript: ^3.5.0 || ^4.0.0
+  checksum: 2/8fd7fcc2cd8ed315b7b55bbcd60bda9e82e68a6a08aa661cdb7c3de1f2421fec01cb0d59992d8795209f0789f6fc01d9eab2ab89029a9cf1636ed3b0141c95e2
   languageName: node
   linkType: hard
 
@@ -102,11 +102,11 @@ __metadata:
   dependencies:
     "@alorel-personal/conventional-changelog-alorel": ^2.1.3
     "@alorel/eslint-config-base": ^1.0.6
-    "@alorel/eslint-config-typescript": ^1.0.4
+    "@alorel/eslint-config-typescript": ^1.0.6
     "@alorel/rollup-plugin-clean": ^1.0.0
     "@alorel/rollup-plugin-copy": ^1.0.1
     "@alorel/rollup-plugin-copy-pkg-json": ^1.0.3
-    "@alorel/rollup-plugin-dts": ^2.0.0
+    "@alorel/rollup-plugin-dts": ^2.0.1
     "@alorel/rollup-plugin-threaded-terser": ^1.1.0
     "@rollup/plugin-node-resolve": ^9.0.0
     "@semantic-release/changelog": ^5.0.1
@@ -1148,7 +1148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^3.5.1, bluebird@npm:^3.5.3, bluebird@npm:^3.5.5, bluebird@npm:^3.7.0":
+"bluebird@npm:^3.5.1, bluebird@npm:^3.5.3, bluebird@npm:^3.5.5, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
   checksum: 2/4f2288662f3d4eadbb82d4daa4a7d7976a28fa3c7eb4102c9b4033b03e5be4574ba123ac52a7c103cde4cb7b2d2afc1dbe41817ca15a29ff21ecd258d0286047
@@ -1759,7 +1759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -2837,7 +2837,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.1.1, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
+"glob@npm:^7.1.1, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
   version: 7.1.6
   resolution: "glob@npm:7.1.6"
   dependencies:
@@ -6963,7 +6963,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"tmp@npm:^0.2.0":
+"tmp@npm:^0.2.1":
   version: 0.2.1
   resolution: "tmp@npm:0.2.1"
   dependencies:
