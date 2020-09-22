@@ -8,6 +8,7 @@ import {threadedTerserPlugin} from '@alorel/rollup-plugin-threaded-terser';
 import {dtsPlugin} from '@alorel/rollup-plugin-dts';
 import * as pkgJson from './package.json';
 import typescript from 'rollup-plugin-typescript2';
+import {builtinModules} from 'module';
 
 const umdName = 'MyLibrary';
 const umdGlobals = {};
@@ -38,9 +39,10 @@ const baseInput = join(srcDir, 'index.ts');
 const baseSettings = {
   external: Array.from(
     new Set(
-      Object.keys(Object.keys(pkgJson.dependencies || {}))
+      Object.keys(pkgJson.dependencies || {})
         .concat(Object.keys(pkgJson.peerDependencies || {}))
         .filter(p => !p.startsWith('@types/'))
+        .concat(builtinModules)
     )
   ),
   input: join(srcDir, 'index.ts'),
