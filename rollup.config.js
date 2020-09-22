@@ -56,7 +56,7 @@ const baseOutput = {
   sourcemap: false
 };
 
-export default function({watch}) { // eslint-disable-line max-lines-per-function,@typescript-eslint/explicit-module-boundary-types
+export default function ({watch}) { // eslint-disable-line max-lines-per-function,@typescript-eslint/explicit-module-boundary-types
   const cjs = {
     ...baseSettings,
     input: baseInput,

@@ -12,6 +12,7 @@
     "strictNullChecks": true,
     "jsxFactory": "h",
     "newLine": "lf",
+    "target": "es2020",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -21,6 +22,9 @@
     "stripInternal": true,
     "importHelpers": true
   },
+  "include": [
+    "src/**/*.spec.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
