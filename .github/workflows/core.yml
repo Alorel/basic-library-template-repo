@@ -40,6 +40,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os:
 #          - windows-latest
@@ -75,6 +76,7 @@ jobs:
       - name: Test
         run: yarn run test --forbid-only --forbid-pending
       - name: Upload coverage
+        continue-on-error: true
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -83,6 +85,7 @@ jobs:
   posttest:
     runs-on: ubuntu-latest
     needs: test
+    continue-on-error: true
     steps:
       - name: Finalise coverage report
         uses: coverallsapp/github-action@v1.1.2
