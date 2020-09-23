@@ -15,23 +15,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-base@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "@alorel/eslint-config-base@npm:1.0.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.9%2F19f1c2ddf52d06b064d8910ded17e9f2a07ea07a38979d351730ad0aa62f12d9"
+"@alorel/eslint-config-base@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@alorel/eslint-config-base@npm:1.0.10::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.10%2F81785a1050b5ea2bcbfe308c0d2201d707b9c725ad54e4acbfc47c0c46c2ecaa"
   peerDependencies:
     eslint: ">=7.9.0"
-  checksum: 2/d0a2bb223ed8f082aeb672c6d0c24763bf638a56cac0c67e892efab8c5a35a9c42233b98d7d7222ab743d49707fe0677caf993db9c1304f741d27f57bd1fbfca
+  checksum: 2/da032ff659ef25d09d6c4890148d2ac57828524bb30527f2637618ba8d711e5ff888b0bc6b7c2f16a0f63f7d16bbf20313650c833c34927d6d7b3c00145abe42
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-typescript@npm:^1.0.8":
-  version: 1.0.8
-  resolution: "@alorel/eslint-config-typescript@npm:1.0.8::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.8%2F3c712071cde5d2d89473ef831dedc1823fa7846b1f7c1add8551cd52e6726c51"
+"@alorel/eslint-config-typescript@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "@alorel/eslint-config-typescript@npm:1.0.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.9%2F788cc58f7d59085f9c8aaf745a74ca8a2b38ae5c29fdb530bd59ce013ea8aee5"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ">=4.1.1"
     "@typescript-eslint/parser": ">=4.1.1"
     eslint: ">=7.9.0"
-  checksum: 2/2d7c4718cd929eb53cb1a3d072a11b1d4a635f330a6a3c35f17ada212693e3b58c3c2c0d1f1c74d529390784af791d62c58fcd554649c6f0ee094657bad9ca41
+  checksum: 2/72d51efb3b0058796bb499f954c630548239baa939a0e0ab534e1f839f3174f3a32c6f46e95f2ddf40cfc824f40b9f32cb61079ab466aeb80f23c6abfd7c3c1e
   languageName: node
   linkType: hard
 
@@ -101,8 +101,8 @@ __metadata:
   resolution: "@alorel/xxxxxxxxxxxxxxxxxxxxxx@workspace:."
   dependencies:
     "@alorel-personal/conventional-changelog-alorel": ^2.1.3
-    "@alorel/eslint-config-base": ^1.0.9
-    "@alorel/eslint-config-typescript": ^1.0.8
+    "@alorel/eslint-config-base": ^1.0.10
+    "@alorel/eslint-config-typescript": ^1.0.9
     "@alorel/rollup-plugin-clean": ^1.0.0
     "@alorel/rollup-plugin-copy": ^1.0.1
     "@alorel/rollup-plugin-copy-pkg-json": ^1.0.3
