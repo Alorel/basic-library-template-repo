@@ -15,23 +15,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-base@npm:^1.0.13":
-  version: 1.0.13
-  resolution: "@alorel/eslint-config-base@npm:1.0.13::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.13%2Fa10e5c3c2a8ce04a01eac53cad229a5808a8028791ff207809d62098f3701a54"
+"@alorel/eslint-config-base@npm:^1.0.15":
+  version: 1.0.15
+  resolution: "@alorel/eslint-config-base@npm:1.0.15::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.15%2F6d41ce91d4095cb7832e8b01be97ee6ade6aafe28b2fb45e941c2b569b3af3f5"
   peerDependencies:
     eslint: ">=7.9.0"
-  checksum: 2/b52d64746ef63d1b936013b9177c8c9b3c89bd8f357d2b6e010a6521d5de86e1609ead27bba031b7b1f7e6706a8b7577d0f6fef0da4432189fea34bd593f219f
+  checksum: 2/e0bf710c3c2f1cbc93768d448ab218e8f2adcbdae0b14e8aa16ed1e7b7d7232bf91fa949fbfaf3c47e7a6eb24c7ebefbb5cb0320f204c1494c46ab03aaf65ceb
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-typescript@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "@alorel/eslint-config-typescript@npm:1.0.11::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.11%2Fbceb95fec1bc5e1fc3fedd15a134225e3339beb3637e9fff1fc3dd27a768f5ec"
+"@alorel/eslint-config-typescript@npm:^1.0.12":
+  version: 1.0.12
+  resolution: "@alorel/eslint-config-typescript@npm:1.0.12::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.12%2F712aeb1d958c3cf97f3be58315831853ba46250706e7bf81257f1e14529c8307"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ">=4.1.1"
     "@typescript-eslint/parser": ">=4.1.1"
     eslint: ">=7.9.0"
-  checksum: 2/eba9e176d8d77a13a673d83c9723e4ae7717df62f33e7d116e88634012c78dde5da1009c903c93195730bb020d41505303c074e02d03b94e4a853cf019acc093
+  checksum: 2/4ceb9d77c6e5d2faf0fedfbf3da88925f8150121559fc5347723972a22332e532ad5026a6fa5161d01f909f9cc9bbed6f36ba2d5edfc3af81e955cf52dfb0274
   languageName: node
   linkType: hard
 
@@ -90,13 +90,14 @@ __metadata:
   resolution: "@alorel/xxxxxxxxxx@workspace:."
   dependencies:
     "@alorel-personal/conventional-changelog-alorel": ^2.1.3
-    "@alorel/eslint-config-base": ^1.0.13
-    "@alorel/eslint-config-typescript": ^1.0.11
+    "@alorel/eslint-config-base": ^1.0.15
+    "@alorel/eslint-config-typescript": ^1.0.12
     "@alorel/rollup-plugin-copy": ^1.0.2
     "@alorel/rollup-plugin-copy-pkg-json": ^1.0.3
     "@alorel/rollup-plugin-dts": ^2.0.1
     "@alorel/rollup-plugin-threaded-terser": ^1.1.0
     "@rollup/plugin-node-resolve": ^9.0.0
+    "@rollup/plugin-replace": ^2.3.3
     "@semantic-release/changelog": ^5.0.1
     "@semantic-release/exec": ^5.0.0
     "@semantic-release/git": ^9.0.0
@@ -586,7 +587,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^3.1.0":
+"@rollup/plugin-replace@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@rollup/plugin-replace@npm:2.3.3"
+  dependencies:
+    "@rollup/pluginutils": ^3.0.8
+    magic-string: ^0.25.5
+  peerDependencies:
+    rollup: ^1.20.0 || ^2.0.0
+  checksum: 2/d08a514b8f446a3fe3db7e9de7d1a57c4aaeaaa3d6f70c2e18925d893ed81480dbfd29fe939f61c1ef31194b036ab7b1df22a744ffd33196335f9fa1925d3c22
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^3.0.8, @rollup/pluginutils@npm:^3.1.0":
   version: 3.1.0
   resolution: "@rollup/pluginutils@npm:3.1.0"
   dependencies:
@@ -5208,6 +5221,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^0.25.5":
+  version: 0.25.7
+  resolution: "magic-string@npm:0.25.7"
+  dependencies:
+    sourcemap-codec: ^1.4.4
+  checksum: 2/4b70c13eb21c6f1c54bf7fb029748dc44d6bfcd3c59e5deeda060eecc38df6144b91d10fb7a3cf6156fadab1a68f83d69a189df20ca5f6bd088bf0196ea8f039
+  languageName: node
+  linkType: hard
+
 "make-dir@npm:^1.0.0":
   version: 1.3.0
   resolution: "make-dir@npm:1.3.0"
@@ -7806,6 +7828,13 @@ fsevents@~2.1.2:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 2/8647829a0611724114022be455ca1c8a2c8ae61df81c5b3667d9b398207226a1e21174fb7bbf0b4dbeb27ac358222afb5a14f1c74a62a62b8883b012e5eb1270
+  languageName: node
+  linkType: hard
+
+"sourcemap-codec@npm:^1.4.4":
+  version: 1.4.8
+  resolution: "sourcemap-codec@npm:1.4.8"
+  checksum: 2/4d56d1232a45af813606d1755f11e7ae6b3542c615a7e3f904382f0134a9412ba8d090e83749254d78449eafdfcc62d5158b8f35e6241480b51b74b5c46b99f9
   languageName: node
   linkType: hard
 

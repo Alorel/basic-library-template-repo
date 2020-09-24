@@ -2,6 +2,7 @@ const {join} = require('path');
 const {_buildBaseExternals, _buildUmdExternals} = require('./build/rollup/_baseExternals');
 const {_buildLazyReq} = require('./build/rollup/_lazyReq');
 const {_buildGroup} = require('./build/rollup/_buildGroup');
+const replacePlugin = require('@rollup/plugin-replace');
 
 // ########## BEGIN SETUP
 
@@ -117,7 +118,7 @@ module.exports = function (rollupConfig) {
     sourcemap: CONFIG.sourcemap
   };
 
-  function getBasePlugins(typescriptConfig = {}) {
+  function getBasePlugins(ecma, typescriptConfig = {}) {
     const cjsSettings = CONFIG.cjsPluginSettings;
 
     return [
@@ -126,6 +127,13 @@ module.exports = function (rollupConfig) {
       require('rollup-plugin-typescript2')({
         tsconfig,
         ...typescriptConfig
+      }),
+      replacePlugin({
+        exclude: /node_modules[\\/]/,
+        include: /src[\\/].+\.ts/,
+        values: {
+          'process.env.ES_TARGET': JSON.stringify(ecma)
+        }
       })
     ].filter(Boolean);
   }
@@ -153,7 +161,7 @@ module.exports = function (rollupConfig) {
           format: 'es'
         }
       ].filter(Boolean),
-      plugins: getBasePlugins({
+      plugins: getBasePlugins('es5', {
         tsconfigOverride: {
           compilerOptions: {
             target: 'es5'
@@ -184,7 +192,7 @@ module.exports = function (rollupConfig) {
           format: 'es'
         }
       ].filter(Boolean),
-      plugins: getBasePlugins(),
+      plugins: getBasePlugins('es2015'),
       preserveModules: true
     });
   }
@@ -210,7 +218,7 @@ module.exports = function (rollupConfig) {
           format: 'es'
         }
       ].filter(Boolean),
-      plugins: getBasePlugins({
+      plugins: getBasePlugins('es5', {
         tsconfigOverride: {
           compilerOptions: {
             target: 'es5'
@@ -242,7 +250,7 @@ module.exports = function (rollupConfig) {
           format: 'es'
         }
       ].filter(Boolean),
-      plugins: getBasePlugins(),
+      plugins: getBasePlugins('es2015'),
       preserveModules: false
     });
   }
@@ -296,7 +304,7 @@ module.exports = function (rollupConfig) {
           ]
         }
       ].filter(Boolean),
-      plugins: getBasePlugins({
+      plugins: getBasePlugins('es5', {
         tsconfigOverride: {
           compilerOptions: {
             target: 'es5'
