@@ -333,11 +333,10 @@ function createConfig(rollupConfig) {
 }
 
 module.exports = function (inConfig) {
-  let projects = inConfig.projects;
+  const projects = inConfig.projects ?
+    inConfig.projects.split(',') :
+    require('./build/rollup/_syncPkg')._buildGetProjects();
   delete inConfig.projects;
-  if (!projects) {
-    projects = require('./build/rollup/_syncPkg')._buildGetProjects();
-  }
 
   const out = projects.flatMap(project => createConfig({...inConfig, project}));
 
