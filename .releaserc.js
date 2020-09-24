@@ -17,6 +17,7 @@ module.exports = {
   prepare: [
     '@semantic-release/changelog',
     NPM,
+    exec('yarn run sync-pkg'),
     exec('yarn run doctoc'),
     {
       assets: [
