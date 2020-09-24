@@ -296,7 +296,13 @@ module.exports = function (rollupConfig) {
           ]
         }
       ].filter(Boolean),
-      plugins: getBasePlugins()
+      plugins: getBasePlugins({
+        tsconfigOverride: {
+          compilerOptions: {
+            target: 'es5'
+          }
+        }
+      })
     });
   }
 
