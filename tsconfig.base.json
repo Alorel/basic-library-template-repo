@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "projects",
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "noUnusedParameters": true,
@@ -23,9 +23,6 @@
     "importHelpers": true
   },
   "include": [
-    "src/**/*.spec.ts"
-  ],
-  "exclude": [
-    "node_modules"
+    "projects/**/*.spec.ts"
   ]
 }

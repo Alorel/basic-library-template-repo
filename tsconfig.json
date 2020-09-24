@@ -5,6 +5,6 @@
     "module": "es2015"
   },
   "files": [
-    "src/index.ts"
+    "projects/core/index.ts"
   ]
 }

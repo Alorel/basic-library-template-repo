@@ -19,22 +19,6 @@ const CONFIG = {
 
     return null;
   },
-  copyPkgJsonSettings: {
-    unsetPaths: ['devDependencies', 'scripts']
-  },
-  copyPluginSettings: {
-    copy: [
-      'LICENSE',
-      'CHANGELOG.md',
-      'README.md'
-    ],
-    defaultOpts: {
-      emitNameKind: 'fileName',
-      glob: {
-        cwd: __dirname
-      }
-    }
-  },
   distDir: join(__dirname, 'dist'),
   dtsPluginSettings: {
     cliArgs: ['--rootDir', 'src']
@@ -44,11 +28,6 @@ const CONFIG = {
     '.js',
     '.ts'
   ],
-  get input() {
-    const value = join(CONFIG.srcDir, 'index.ts');
-    Object.defineProperty(CONFIG, 'input', {value});
-    return value;
-  },
   mainFields: [
     'fesm5',
     'esm5',
@@ -56,28 +35,21 @@ const CONFIG = {
     'browser',
     'main'
   ],
-  get projectName() {
-    const name = require('./package.json').name;
-    const value = name.startsWith('@') ? name.split('@')[1].split('/')[1] : name;
-    Object.defineProperty(CONFIG, 'projectName', {value});
-    return value;
-  },
   sourcemap: false,
-  srcDir: join(__dirname, 'src'),
+  srcDir: join(__dirname, 'projects'),
   umd: {
     globals: {},
-    get name() {
-      const value = CONFIG.projectName;
-      Object.defineProperty(CONFIG.umd, 'name', {value});
-      return value;
+    name: {
+      core: 'MyLibrary'
     }
   }
 };
 
 // ########## END SETUP
 
-module.exports = function (rollupConfig) {
+function createConfig(rollupConfig) {
   const {
+    project,
     cjs5 = false,
     fcjs5 = false,
     cjs2015 = false,
@@ -99,13 +71,12 @@ module.exports = function (rollupConfig) {
     throw new Error('At least one option required: cjs5, fcjs5, cjs2015, fcjs2015, esm5, fesm5, esm2015, fesm2015, minumd, stdumd');
   }
 
-  for (const p of ['cjs5', 'dts', 'fcjs5', 'cjs2015', 'fcjs2015', 'esm5', 'fesm5', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
-    delete rollupConfig[p];
-  }
+  const distDir = join(CONFIG.distDir, project);
+  const projectDir = join(CONFIG.srcDir, project);
 
   const baseSettings = {
     external: _buildBaseExternals,
-    input: CONFIG.input,
+    input: join(projectDir, 'index.ts'),
     watch: {
       exclude: 'node_modules/**/*'
     }
@@ -113,7 +84,7 @@ module.exports = function (rollupConfig) {
 
   const baseOutput = {
     assetFileNames: CONFIG.assetFileNames,
-    dir: CONFIG.distDir,
+    dir: distDir,
     entryFileNames: CONFIG.entryFileNames,
     sourcemap: CONFIG.sourcemap
   };
@@ -157,7 +128,7 @@ module.exports = function (rollupConfig) {
         },
         esm5 && {
           ...es5BaseOutput,
-          dir: join(CONFIG.distDir, '_esm5'),
+          dir: join(distDir, '_esm5'),
           format: 'es'
         }
       ].filter(Boolean),
@@ -188,7 +159,7 @@ module.exports = function (rollupConfig) {
         },
         esm2015 && {
           ...es6BaseOutput,
-          dir: join(CONFIG.distDir, '_esm2015'),
+          dir: join(distDir, '_esm2015'),
           format: 'es'
         }
       ].filter(Boolean),
@@ -214,7 +185,7 @@ module.exports = function (rollupConfig) {
         },
         fesm5 && {
           ...fesm5BaseOutput,
-          dir: join(CONFIG.distDir, '_fesm5'),
+          dir: join(distDir, '_fesm5'),
           format: 'es'
         }
       ].filter(Boolean),
@@ -246,7 +217,7 @@ module.exports = function (rollupConfig) {
         },
         fesm2015 && {
           ...fesm2015BaseOutput,
-          dir: join(CONFIG.distDir, '_fesm2015'),
+          dir: join(distDir, '_fesm2015'),
           format: 'es'
         }
       ].filter(Boolean),
@@ -256,13 +227,16 @@ module.exports = function (rollupConfig) {
   }
 
   if (stdumd || minumd) {
+    if (!CONFIG.umd.name[project]) {
+      throw new Error(`Umd name missing for ${project}`);
+    }
     const umdBaseOutput = {
       ...baseOutput,
       banner: _buildLazyReq.bannerFn,
-      dir: join(CONFIG.distDir, '_umd'),
+      dir: join(distDir, '_umd'),
       format: 'umd',
       globals: CONFIG.umd.globals,
-      name: CONFIG.umd.name,
+      name: CONFIG.umd.name[project],
       preferConst: false
     };
 
@@ -273,11 +247,11 @@ module.exports = function (rollupConfig) {
       output: [
         stdumd && {
           ...umdBaseOutput,
-          entryFileNames: `${CONFIG.projectName}.js`
+          entryFileNames: 'index.js'
         },
         minumd && {
           ...umdBaseOutput,
-          entryFileNames: `${CONFIG.projectName}.min.js`,
+          entryFileNames: 'index.min.js',
           plugins: [
             _buildLazyReq.threadedTerser({
               terserOpts: {
@@ -323,23 +297,56 @@ module.exports = function (rollupConfig) {
 
       return [];
     };
-    const outputsToDist = v => v.dir === CONFIG.distDir;
+    const outputsToDist = v => v.dir === distDir;
     const firstDistGroup = outConfig.find(obj => castArray(obj.output).some(outputsToDist));
     const cpPlugin = require('@alorel/rollup-plugin-copy').copyPlugin({
-      watch,
-      ...CONFIG.copyPluginSettings
+      copy: [
+        {
+          from: 'LICENSE',
+          opts: {glob: {cwd: __dirname}}
+        },
+        {
+          from: 'README.md',
+          opts: {glob: {cwd: projectDir}}
+        }
+      ],
+      defaultOpts: {
+        emitNameKind: 'fileName'
+      },
+      watch
     });
     watch && firstDistGroup.plugins.push(cpPlugin);
 
     const firstDistOutput = castArray(firstDistGroup.output).find(outputsToDist);
     (firstDistOutput.plugins || (firstDistOutput.plugins = [])).push(...[
-      require('@alorel/rollup-plugin-copy-pkg-json').copyPkgJsonPlugin(CONFIG.copyPkgJsonSettings),
+      require('@alorel/rollup-plugin-copy-pkg-json').copyPkgJsonPlugin({
+        pkgJsonPath: join(projectDir, 'package.json')
+      }),
       !watch && cpPlugin,
-      dts && !watch && require('@alorel/rollup-plugin-dts').dtsPlugin(CONFIG.dtsPluginSettings)
+      dts && !watch && require('@alorel/rollup-plugin-dts').dtsPlugin({
+        cliArgs: ['--rootDir', `projects/${project}`]
+      })
     ].filter(Boolean));
   }
 
   return outConfig;
+}
+
+module.exports = function (inConfig) {
+  let projects = inConfig.projects;
+  delete inConfig.projects;
+  if (!projects) {
+    projects = require('./build/rollup/_syncPkg')._buildGetProjects();
+  }
+
+  const out = projects.flatMap(project => createConfig({...inConfig, project}));
+
+  for (const p of ['cjs5', 'projects', 'dts', 'fcjs5', 'cjs2015', 'fcjs2015', 'esm5', 'fesm5', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
+    delete inConfig[p];
+  }
+
+  return out;
 };
+
 Object.defineProperty(module.exports, '__esModule', {value: true});
 module.exports.default = module.exports;
