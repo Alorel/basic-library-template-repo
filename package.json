@@ -1,5 +1,6 @@
 {
   "name": "@alorel/xxxxxxxxxx",
+  "private": true,
   "version": "0.0.0",
   "description": "xxxxxxxxxx",
   "main": "index.js",
