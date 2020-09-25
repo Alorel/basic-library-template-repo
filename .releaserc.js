@@ -33,7 +33,7 @@ module.exports = {
     exec('yarn run rollup')
   ],
   publish: [
-    ...projectNames.map(p => `bash -c "cd dist/${p} && npm publish"`),
+    ...projectNames.map(p => exec(`bash -c "cd dist/${p} && npm publish"`)),
     GH
   ],
   tagFormat: '${version}',
