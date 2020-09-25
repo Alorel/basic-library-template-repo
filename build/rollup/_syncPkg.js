@@ -78,7 +78,7 @@ function _buildSyncPkgJson(fields) {
             // eslint-disable-next-line max-depth
             if (rootVersion !== version) {
               changed = true;
-              pkgJson[fPkg][dep] = version;
+              pkgJson[fPkg][dep] = rootVersion;
             }
 
             break depSearch;
