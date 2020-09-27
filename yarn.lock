@@ -15,23 +15,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-base@npm:^1.0.15":
-  version: 1.0.15
-  resolution: "@alorel/eslint-config-base@npm:1.0.15::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.15%2F6d41ce91d4095cb7832e8b01be97ee6ade6aafe28b2fb45e941c2b569b3af3f5"
+"@alorel/eslint-config-base@npm:^1.0.17":
+  version: 1.0.17
+  resolution: "@alorel/eslint-config-base@npm:1.0.17::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-base%2F1.0.17%2F0cd00f7cc51881f31cf552fb4944779e1bd38426816ee479bae829e9e9491d11"
+  dependencies:
+    "@alorel/eslint-config-shared": ^1.0.0
   peerDependencies:
     eslint: ">=7.9.0"
-  checksum: 2/e0bf710c3c2f1cbc93768d448ab218e8f2adcbdae0b14e8aa16ed1e7b7d7232bf91fa949fbfaf3c47e7a6eb24c7ebefbb5cb0320f204c1494c46ab03aaf65ceb
+  checksum: 2/d2d2f45d627dbd78be7eee478496aeaa5a8551988d77cf6760cec6adaabf35134faf973c4ecced1347f9a0ef0c005851f86e1dcf0b2af8fc86028fe224316533
   languageName: node
   linkType: hard
 
-"@alorel/eslint-config-typescript@npm:^1.0.12":
-  version: 1.0.12
-  resolution: "@alorel/eslint-config-typescript@npm:1.0.12::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.12%2F712aeb1d958c3cf97f3be58315831853ba46250706e7bf81257f1e14529c8307"
+"@alorel/eslint-config-shared@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@alorel/eslint-config-shared@npm:1.0.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-shared%2F1.0.0%2F52ffafe6711504f664b7f091fbe7be01990523b6339d83938039cc19b5c62ec7"
+  peerDependencies:
+    eslint: ">=7.9.0"
+  checksum: 2/47b209b5e37ca48cac3309a9fdf99678c6d2ae31ced6f4959e94c238323ec99dd07ae14fb5b24b0db8633cc7e06dcfa64dc2a85ad4a32c1c76d15caa05b905d1
+  languageName: node
+  linkType: hard
+
+"@alorel/eslint-config-typescript@npm:^1.0.17":
+  version: 1.0.17
+  resolution: "@alorel/eslint-config-typescript@npm:1.0.17::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alorel%2Feslint-config-typescript%2F1.0.17%2F05cdca7fd60ad3bc70bb85a8b1b044e8ad1709465b203dfe82ffa17d437a0163"
+  dependencies:
+    "@alorel/eslint-config-shared": ^1.0.0
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ">=4.1.1"
     "@typescript-eslint/parser": ">=4.1.1"
     eslint: ">=7.9.0"
-  checksum: 2/4ceb9d77c6e5d2faf0fedfbf3da88925f8150121559fc5347723972a22332e532ad5026a6fa5161d01f909f9cc9bbed6f36ba2d5edfc3af81e955cf52dfb0274
+  checksum: 2/8b1f250be3c547586007540916e3f04987895f75fadb4e5e8b4b345493f54e51b3df02f636becc5b686ce56367cd80a4b9f22f8f2cf94507a47bf876c9935ff5
   languageName: node
   linkType: hard
 
@@ -90,8 +103,8 @@ __metadata:
   resolution: "@alorel/xxxxxxxxxx@workspace:."
   dependencies:
     "@alorel-personal/conventional-changelog-alorel": ^2.1.3
-    "@alorel/eslint-config-base": ^1.0.15
-    "@alorel/eslint-config-typescript": ^1.0.12
+    "@alorel/eslint-config-base": ^1.0.17
+    "@alorel/eslint-config-typescript": ^1.0.17
     "@alorel/rollup-plugin-copy": ^1.0.2
     "@alorel/rollup-plugin-copy-pkg-json": ^1.0.3
     "@alorel/rollup-plugin-dts": ^2.0.1
@@ -112,11 +125,11 @@ __metadata:
     cross-env: ^7.0.2
     del-cli: ^3.0.1
     doctoc: ^1.4.0
-    eslint: ^7.9.0
+    eslint: ^7.10.0
     mocha: ^8.1.3
     nyc: ^15.1.0
     rollup: ^2.28.2
-    rollup-plugin-typescript2: ^0.27.2
+    rollup-plugin-typescript2: ^0.27.3
     semantic-release: ^17.1.2
     source-map-support: ^0.5.19
     terser: ^5.3.2
@@ -2869,7 +2882,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-scope@npm:^5.0.0, eslint-scope@npm:^5.1.0":
+"eslint-scope@npm:^5.0.0, eslint-scope@npm:^5.1.1":
   version: 5.1.1
   resolution: "eslint-scope@npm:5.1.1"
   dependencies:
@@ -2902,9 +2915,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.9.0":
-  version: 7.9.0
-  resolution: "eslint@npm:7.9.0"
+"eslint@npm:^7.10.0":
+  version: 7.10.0
+  resolution: "eslint@npm:7.10.0"
   dependencies:
     "@babel/code-frame": ^7.0.0
     "@eslint/eslintrc": ^0.1.3
@@ -2914,7 +2927,7 @@ __metadata:
     debug: ^4.0.1
     doctrine: ^3.0.0
     enquirer: ^2.3.5
-    eslint-scope: ^5.1.0
+    eslint-scope: ^5.1.1
     eslint-utils: ^2.1.0
     eslint-visitor-keys: ^1.3.0
     espree: ^7.3.0
@@ -2945,7 +2958,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 2/295fe8c442b9e9cc677fa03c88a873ad74c1d06620f4600745de83e5d4d10d53898cd1e15276e3420c976f00469d1ea8bbc5a4157c1f198753cece98f8903f5c
+  checksum: 2/a136b9e01c956b97b1705517ecf71de082d7758b5871c97f4ca6a33a6f364f8be42a75f045ed74c3ae85e42e333269c4db5ad8b793f0ceeb10975726808a1514
   languageName: node
   linkType: hard
 
@@ -7506,9 +7519,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rollup-plugin-typescript2@npm:^0.27.2":
-  version: 0.27.2
-  resolution: "rollup-plugin-typescript2@npm:0.27.2"
+"rollup-plugin-typescript2@npm:^0.27.3":
+  version: 0.27.3
+  resolution: "rollup-plugin-typescript2@npm:0.27.3"
   dependencies:
     "@rollup/pluginutils": ^3.1.0
     find-cache-dir: ^3.3.1
@@ -7518,7 +7531,7 @@ fsevents@~2.1.2:
   peerDependencies:
     rollup: ">=1.26.3"
     typescript: ">=2.4.0"
-  checksum: 2/ff62b82640b17cb26aa3cbd2bd6f403413cad9f2e60e9450f1ffc6676c2064fc38256d8ae6c8174253d284dffb8abdf0509c2be623e06ad3be71a87c79f2fab5
+  checksum: 2/96a4bcc01659dadb0a2863c565050a5c71e843095d7335aaf7aa7bf3c7659b68c9bc41681fb2a94b836b6ea4d4472d52041268a7ad9d5d55395173c893851c38
   languageName: node
   linkType: hard
 
