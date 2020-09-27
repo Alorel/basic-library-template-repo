@@ -19,7 +19,7 @@
   "license": "MIT",
   "scripts": {
     "rollup": "del-cli -f dist && rollup -c --cjs2015 --fesm5 --esm5 --esm2015 --fesm2015 --stdumd --minumd --dts",
-    "rollup:watch": "del-cli -f dist && rollup -c --watch --cjs2015 --esm2015 --umd",
+    "rollup:watch": "del-cli -f dist && rollup -c --watch --cjs2015 --esm2015 --stdumd",
     "sync-pkg": "node build/rollup/_syncPkg.js --run-sync-pkg",
     "doctoc": "doctoc --github README.md",
     "release": "semantic-release",
