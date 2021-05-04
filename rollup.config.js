@@ -102,6 +102,7 @@ function createConfig(rollupConfig) {
       replacePlugin({
         exclude: /node_modules[\\/]/,
         include: /src[\\/].+\.ts/,
+        preventAssignment: true,
         values: {
           'process.env.ES_TARGET': JSON.stringify(ecma)
         }
