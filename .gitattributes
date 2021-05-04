@@ -17,7 +17,6 @@
 *.nycrc text
 *.toml text
 *.pug text
-yarn.lock text
 *.md text
 *.scss text
 *.sass text
