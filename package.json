@@ -18,14 +18,14 @@
   "author": "Arturas Molcanovas <a.molcanovas@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "rollup": "del-cli -f dist && rollup -c --cjs2015 --fesm5 --esm5 --esm2015 --fesm2015 --stdumd --minumd",
+    "rollup": "del-cli -f dist && rollup -c --cjs2015 --esm2015 --stdumd --minumd --dts",
     "rollup:watch": "del-cli -f dist && rollup -c --watch --cjs2015 --esm2015 --stdumd",
     "sync-pkg": "node build/rollup/_syncPkg.js --run-sync-pkg",
     "doctoc": "doctoc --github README.md",
     "release": "semantic-release",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "npm run lint -- --fix",
-    "test": "del-cli coverage && cross-env \"TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}\" nyc mocha",
+    "test": "del-cli coverage && cross-env \"TS_NODE_PROJECT=tsconfig.test.json\" nyc mocha",
     "test:watch": "npm run test -- --watch",
     "typecheck": "tsc --noEmit --outDir dist",
     "typecheck:watch": "npm run typecheck -- --watch"

@@ -1,7 +1,6 @@
 const {join} = require('path');
 const {_buildBaseExternals, _buildUmdExternals} = require('./build/rollup/_baseExternals');
 const {_buildLazyReq} = require('./build/rollup/_lazyReq');
-const {_buildGroup} = require('./build/rollup/_buildGroup');
 const replacePlugin = require('@rollup/plugin-replace');
 
 // ########## BEGIN SETUP
@@ -47,25 +46,23 @@ const CONFIG = {
 function createConfig(rollupConfig) {
   const {
     project,
-    cjs5 = false,
-    fcjs5 = false,
     cjs2015 = false,
     fcjs2015 = false,
-    esm5 = false,
-    fesm5 = false,
     esm2015 = false,
     fesm2015 = false,
     stdumd = false,
+    dts = false,
     minumd = false,
     tsconfig = 'tsconfig.json',
     watch = false
   } = rollupConfig;
 
-  if ([cjs5, fcjs5, cjs2015, fcjs2015].filter(Boolean).length > 1) {
-    throw new Error('These options are mutually exclusive: cjs5, fcjs5, cjs2015, fcjs2015');
-  } else if (![cjs5, fcjs5, cjs2015, fcjs2015, esm5, fesm5, esm2015, fesm2015, stdumd, minumd].some(Boolean)) {
-    throw new Error('At least one option required: cjs5, fcjs5, cjs2015, fcjs2015, esm5, fesm5, esm2015, fesm2015, minumd, stdumd');
+  if ([cjs2015, fcjs2015].filter(Boolean).length > 1) {
+    throw new Error('These options are mutually exclusive: cjs2015, fcjs2015');
+  } else if (![cjs2015, fcjs2015, esm2015, fesm2015, stdumd, minumd].some(Boolean)) {
+    throw new Error('At least one option required: cjs2015, fcjs2015, esm2015, fesm2015, minumd, stdumd');
   }
+
 
   const distDir = join(CONFIG.distDir, project);
   const projectDir = join(CONFIG.srcDir, project);
@@ -85,7 +82,52 @@ function createConfig(rollupConfig) {
     sourcemap: CONFIG.sourcemap
   };
 
-  function getBasePlugins(ecma, typescriptConfig = {}) {
+  const tryAddCopyPlugin = (() => {
+    let added = false;
+
+    return () => {
+      if (added) {
+        return [];
+      }
+
+      return [
+        require('@alorel/rollup-plugin-copy-pkg-json').copyPkgJsonPlugin({
+          pkgJsonPath: join(projectDir, 'package.json')
+        }),
+        require('@alorel/rollup-plugin-copy').copyPlugin({
+          copy: [
+            {
+              from: 'LICENSE',
+              opts: {glob: {cwd: __dirname}}
+            },
+            {
+              from: 'README.md',
+              opts: {glob: {cwd: projectDir}}
+            }
+          ],
+          defaultOpts: {
+            emitNameKind: 'fileName'
+          },
+          watch
+        })
+      ]
+    };
+  })();
+
+  let dtsEmitted = !dts;
+  function tryEmitDts(compilerOptions) {
+    if (dtsEmitted) {
+      return compilerOptions;
+    }
+
+    dtsEmitted = true;
+    return {
+      ...compilerOptions,
+      declaration: true,
+    };
+  }
+
+  function getBasePlugins(ecma, compilerOpts) {
     const cjsSettings = CONFIG.cjsPluginSettings;
 
     return [
@@ -93,7 +135,12 @@ function createConfig(rollupConfig) {
       cjsSettings && require('@rollup/plugin-commonjs').default(cjsSettings),
       require('rollup-plugin-typescript2')({
         tsconfig,
-        ...typescriptConfig
+        tsconfigOverride: {
+          compilerOptions: {
+            rootDir: `projects/${project}`,
+            ...compilerOpts
+          },
+        },
       }),
       replacePlugin({
         exclude: /node_modules[\\/]/,
@@ -106,39 +153,7 @@ function createConfig(rollupConfig) {
     ].filter(Boolean);
   }
 
-  const BG = Symbol('Build group');
   const outConfig = [];
-
-  if (cjs5 || esm5) {
-    const es5BaseOutput = {
-      ...baseOutput,
-      preferConst: false
-    };
-
-    outConfig.push({
-      ...baseSettings,
-      [BG]: _buildGroup.ES5,
-      output: [
-        cjs5 && {
-          ...es5BaseOutput,
-          format: 'cjs'
-        },
-        esm5 && {
-          ...es5BaseOutput,
-          dir: join(distDir, '_esm5'),
-          format: 'es'
-        }
-      ].filter(Boolean),
-      plugins: getBasePlugins('es5', {
-        tsconfigOverride: {
-          compilerOptions: {
-            target: 'es5'
-          }
-        }
-      }),
-      preserveModules: true
-    });
-  }
 
   if (cjs2015 || esm2015) {
     const es6BaseOutput = {
@@ -146,55 +161,29 @@ function createConfig(rollupConfig) {
       preferConst: true
     };
 
-    outConfig.push({
-      ...baseSettings,
-      [BG]: _buildGroup.ES6,
-      output: [
-        cjs2015 && {
+    if (cjs2015) {
+      outConfig.push({
+        ...baseSettings,
+        output: {
           ...es6BaseOutput,
           format: 'cjs'
         },
-        esm2015 && {
+        plugins: getBasePlugins('es2015', tryEmitDts()),
+        preserveModules: true
+      })
+    }
+    if (esm2015) {
+      outConfig.push({
+        ...baseSettings,
+        output: {
           ...es6BaseOutput,
-          dir: join(distDir, '_esm2015'),
+          dir: dtsEmitted ? join(distDir, '_esm2015') : distDir,
           format: 'es'
-        }
-      ].filter(Boolean),
-      plugins: getBasePlugins('es2015'),
-      preserveModules: true
-    });
-  }
-
-  if (fcjs5 || fesm5) {
-    const fesm5BaseOutput = {
-      ...baseOutput,
-      banner: _buildLazyReq.bannerFn,
-      preferConst: false
-    };
-
-    outConfig.push({
-      ...baseSettings,
-      [BG]: _buildGroup.FLAT_ES5,
-      output: [
-        fcjs5 && {
-          ...fesm5BaseOutput,
-          format: 'cjs'
         },
-        fesm5 && {
-          ...fesm5BaseOutput,
-          dir: join(distDir, '_fesm5'),
-          format: 'es'
-        }
-      ].filter(Boolean),
-      plugins: getBasePlugins('es5', {
-        tsconfigOverride: {
-          compilerOptions: {
-            target: 'es5'
-          }
-        }
-      }),
-      preserveModules: false
-    });
+        plugins: getBasePlugins('es2015', tryEmitDts()),
+        preserveModules: true
+      })
+    }
   }
 
   if (fcjs2015 || fesm2015) {
@@ -204,23 +193,30 @@ function createConfig(rollupConfig) {
       preferConst: true
     };
 
-    outConfig.push({
-      ...baseSettings,
-      [BG]: _buildGroup.FLAT_ES6,
-      output: [
-        fcjs2015 && {
+    if (fcjs2015) {
+      outConfig.push({
+        ...baseSettings,
+        output: {
           ...fesm2015BaseOutput,
           format: 'cjs'
         },
-        fesm2015 && {
+        plugins: getBasePlugins('es2015', tryEmitDts()),
+        preserveModules: false
+      });
+    }
+
+    if (fesm2015) {
+      outConfig.push({
+        ...baseSettings,
+        output: {
           ...fesm2015BaseOutput,
-          dir: join(distDir, '_fesm2015'),
+          dir: dtsEmitted ? join(distDir, '_fesm2015') : distDir,
           format: 'es'
-        }
-      ].filter(Boolean),
-      plugins: getBasePlugins('es2015'),
-      preserveModules: false
-    });
+        },
+        plugins: getBasePlugins('es2015', tryEmitDts()),
+        preserveModules: false,
+      });
+    }
   }
 
   if (stdumd || minumd) {
@@ -230,16 +226,15 @@ function createConfig(rollupConfig) {
     const umdBaseOutput = {
       ...baseOutput,
       banner: _buildLazyReq.bannerFn,
-      dir: join(distDir, '_umd'),
+      dir: dtsEmitted ? join(distDir, '_umd') : distDir,
       format: 'umd',
       globals: CONFIG.umd.globals,
       name: CONFIG.umd.name[project],
-      preferConst: false
+      preferConst: true,
     };
 
     outConfig.push({
       ...baseSettings,
-      [BG]: _buildGroup.UMD,
       external: _buildUmdExternals,
       output: [
         stdumd && {
@@ -258,7 +253,7 @@ function createConfig(rollupConfig) {
                   keep_infinity: true,
                   typeofs: false
                 },
-                ecma: 5,
+                ecma: 2017,
                 ie8: true,
                 mangle: {
                   safari10: true
@@ -275,52 +270,8 @@ function createConfig(rollupConfig) {
           ]
         }
       ].filter(Boolean),
-      plugins: getBasePlugins('es5', {
-        tsconfigOverride: {
-          compilerOptions: {
-            target: 'es5'
-          }
-        }
-      })
+      plugins: getBasePlugins('es2015', tryEmitDts())
     });
-  }
-
-  outConfig.sort((a, b) => a[BG] - b[BG]);
-  {
-    const castArray = v => {
-      if (v) {
-        return Array.isArray(v) ? v : [v];
-      }
-
-      return [];
-    };
-    const outputsToDist = v => v.dir === distDir;
-    const firstDistGroup = outConfig.find(obj => castArray(obj.output).some(outputsToDist));
-    const cpPlugin = require('@alorel/rollup-plugin-copy').copyPlugin({
-      copy: [
-        {
-          from: 'LICENSE',
-          opts: {glob: {cwd: __dirname}}
-        },
-        {
-          from: 'README.md',
-          opts: {glob: {cwd: projectDir}}
-        }
-      ],
-      defaultOpts: {
-        emitNameKind: 'fileName'
-      },
-      watch
-    });
-    watch && firstDistGroup.plugins.push(cpPlugin);
-
-    const firstDistOutput = castArray(firstDistGroup.output).find(outputsToDist);
-    (firstDistOutput.plugins || (firstDistOutput.plugins = [])).push(...[
-      require('@alorel/rollup-plugin-copy-pkg-json').copyPkgJsonPlugin({
-        pkgJsonPath: join(projectDir, 'package.json')
-      }),
-      !watch && cpPlugin,
-    ].filter(Boolean));
   }
 
   return outConfig;
@@ -334,7 +285,7 @@ module.exports = function (inConfig) {
 
   const out = projects.flatMap(project => createConfig({...inConfig, project}));
 
-  for (const p of ['cjs5', 'projects', 'fcjs5', 'cjs2015', 'fcjs2015', 'esm5', 'fesm5', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
+  for (const p of ['dts', 'projects', 'cjs2015', 'fcjs2015', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
     delete inConfig[p];
   }
 

@@ -21,8 +21,5 @@
     "assumeChangesOnlyAffectDirectDependencies": true,
     "stripInternal": true,
     "importHelpers": true
-  },
-  "include": [
-    "projects/**/*.spec.ts"
-  ]
+  }
 }
