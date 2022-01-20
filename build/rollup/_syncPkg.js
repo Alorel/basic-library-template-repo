@@ -97,8 +97,6 @@ const _buildPkgDefaultSyncFields = [
   'version',
   'main',
   'module',
-  'esm5',
-  'fesm5',
   'es2015',
   'esm2015',
   'fesm2015',

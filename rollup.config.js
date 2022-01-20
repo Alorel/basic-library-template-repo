@@ -25,8 +25,9 @@ const CONFIG = {
     '.ts'
   ],
   mainFields: [
-    'fesm5',
-    'esm5',
+    'fesm2015',
+    'es2015',
+    'esm2015',
     'module',
     'browser',
     'main'
@@ -168,7 +169,10 @@ function createConfig(rollupConfig) {
           ...es6BaseOutput,
           format: 'cjs'
         },
-        plugins: getBasePlugins('es2015', tryEmitDts()),
+        plugins: [
+          ...getBasePlugins('es2015', tryEmitDts()),
+          ...tryAddCopyPlugin()
+        ],
         preserveModules: true
       })
     }
@@ -180,7 +184,10 @@ function createConfig(rollupConfig) {
           dir: dtsEmitted ? join(distDir, '_esm2015') : distDir,
           format: 'es'
         },
-        plugins: getBasePlugins('es2015', tryEmitDts()),
+        plugins: [
+          ...getBasePlugins('es2015', tryEmitDts()),
+          ...tryAddCopyPlugin()
+        ],
         preserveModules: true
       })
     }
@@ -200,7 +207,10 @@ function createConfig(rollupConfig) {
           ...fesm2015BaseOutput,
           format: 'cjs'
         },
-        plugins: getBasePlugins('es2015', tryEmitDts()),
+        plugins: [
+          ...getBasePlugins('es2015', tryEmitDts()),
+          ...tryAddCopyPlugin(),
+        ],
         preserveModules: false
       });
     }
@@ -213,7 +223,10 @@ function createConfig(rollupConfig) {
           dir: dtsEmitted ? join(distDir, '_fesm2015') : distDir,
           format: 'es'
         },
-        plugins: getBasePlugins('es2015', tryEmitDts()),
+        plugins: [
+          ...getBasePlugins('es2015', tryEmitDts()),
+          ...tryAddCopyPlugin(),
+        ],
         preserveModules: false,
       });
     }
@@ -270,7 +283,10 @@ function createConfig(rollupConfig) {
           ]
         }
       ].filter(Boolean),
-      plugins: getBasePlugins('es2015', tryEmitDts())
+      plugins: [
+        ...getBasePlugins('es2015', tryEmitDts()),
+        ...tryAddCopyPlugin(),
+      ]
     });
   }
 
