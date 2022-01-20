@@ -12,7 +12,7 @@ jobs:
         os:
           - ubuntu-latest
         node:
-          - 14
+          - 16
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -32,15 +32,6 @@ jobs:
           key: ${{ runner.os }}-npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-${{ matrix.node }}-
-      - name: Install NPM^7.11
-        run: npm install -g npm@^7.11.2 --no-fund --no-audit
-#      - name: Output NPM version
-#        id: npm-version
-#        run: |
-#          echo "::set-output name=version::$(npm -v)"
-#      - name: Install NPM7
-#        if: ${{ !startsWith(npm-version.version, '7' }}
-#        run: npm install -g npm@^7.7.6
       - name: Install deps
         run: npm ci --no-fund
         env:
@@ -58,9 +49,8 @@ jobs:
 #          - macos-latest
           - ubuntu-latest
         node:
-          - 15
+          - 16
           - 14
-          - 12
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -80,15 +70,6 @@ jobs:
           key: ${{ runner.os }}-npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-${{ matrix.node }}-
-      - name: Install NPM^7.11
-        run: npm install -g npm@^7.11.2 --no-fund --no-audit
-      #      - name: Output NPM version
-      #        id: npm-version
-      #        run: |
-      #          echo "::set-output name=version::$(npm -v)"
-      #      - name: Install NPM7
-      #        if: ${{ !startsWith(npm-version.version, '7' }}
-      #        run: npm install -g npm@^7.7.6
       - name: Install deps
         run: npm ci --no-fund
         env:
@@ -125,7 +106,7 @@ jobs:
         os:
           - ubuntu-latest
         node:
-          - 14
+          - 16
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -147,15 +128,6 @@ jobs:
           key: ${{ runner.os }}-npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-${{ matrix.node }}-
-      - name: Install NPM^7.11
-        run: npm install -g npm@^7.11.2 --no-fund --no-audit
-      #      - name: Output NPM version
-      #        id: npm-version
-      #        run: |
-      #          echo "::set-output name=version::$(npm -v)"
-      #      - name: Install NPM7
-      #        if: ${{ !startsWith(npm-version.version, '7' }}
-      #        run: npm install -g npm@^7.7.6
       - name: Install deps
         run: npm ci --no-fund
         env:

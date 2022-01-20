@@ -20,9 +20,6 @@ const CONFIG = {
     return null;
   },
   distDir: join(__dirname, 'dist'),
-  dtsPluginSettings: {
-    cliArgs: ['--rootDir', 'src']
-  },
   entryFileNames: '[name].js',
   extensions: [
     '.js',
@@ -60,7 +57,6 @@ function createConfig(rollupConfig) {
     fesm2015 = false,
     stdumd = false,
     minumd = false,
-    dts = false,
     tsconfig = 'tsconfig.json',
     watch = false
   } = rollupConfig;
@@ -324,9 +320,6 @@ function createConfig(rollupConfig) {
         pkgJsonPath: join(projectDir, 'package.json')
       }),
       !watch && cpPlugin,
-      dts && !watch && require('@alorel/rollup-plugin-dts').dtsPlugin({
-        cliArgs: ['--rootDir', `projects/${project}`]
-      })
     ].filter(Boolean));
   }
 
@@ -341,7 +334,7 @@ module.exports = function (inConfig) {
 
   const out = projects.flatMap(project => createConfig({...inConfig, project}));
 
-  for (const p of ['cjs5', 'projects', 'dts', 'fcjs5', 'cjs2015', 'fcjs2015', 'esm5', 'fesm5', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
+  for (const p of ['cjs5', 'projects', 'fcjs5', 'cjs2015', 'fcjs2015', 'esm5', 'fesm5', 'esm2015', 'fesm2015', 'stdumd', 'minumd', 'tsconfig']) {
     delete inConfig[p];
   }
 
