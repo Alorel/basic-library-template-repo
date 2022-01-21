@@ -91,6 +91,8 @@ function createConfig(rollupConfig) {
         return [];
       }
 
+      added = true;
+
       return [
         require('@alorel/rollup-plugin-copy-pkg-json').copyPkgJsonPlugin({
           pkgJsonPath: join(projectDir, 'package.json')
